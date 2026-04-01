@@ -1,2 +1,2 @@
 # Biblioteca
-Praticando conhecimentos do framework Sprgin
+Praticando conhecimentos do framework Spring, e Docker
