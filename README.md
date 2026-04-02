@@ -1,2 +1,2 @@
 # Biblioteca
-Praticando conhecimentos do framework Spring, e Docker
+Praticando conhecimentos do framework Spring, Docker(PostgreSQL) e "Boas práticas" 
