@@ -1,0 +1,31 @@
+#DOCKER
+1 - Foi nececessário criar uma rede para que os dois containers pudessem se comunicar.
+- para criar network = docker network create library-network
+2 - Criar o container do PostgreSQL para fazer o uso desse SGBD
+- criar container postgrers = docker run --name libraryDB -p 5432:5432 -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=admin -e POSTGRES_DB=library  --network library-network  postgres:16.3
+3 - Criar o container do dpage/pgadmin4 para visualizar o banco(parecido com o que ocorre no Workbeach para o Mysql)
+- criar container dpage/pgadmin4 = docker run --name pgadmin4 -p 15432:80 -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=admin --network library-network dpage/pgadmin4
+
+-----------------------------
+
+#SQL
+
+-- Tabela Autor
+CREATE TABLE Autor (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nome VARCHAR(255) NOT NULL,
+    nacionalidade VARCHAR(100)
+);
+
+
+-- Tabela Livro
+CREATE TABLE Livro (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    isbn VARCHAR(20) UNIQUE NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    data_publicacao DATE,
+    genero VARCHAR(20) NOT NULL,
+    preco NUMERIC(10, 2),
+    id_autor UUID NOT NULL,
+    FOREIGN KEY (id_autor) REFERENCES Autor(id) ON DELETE RESTRICT
+);
