@@ -19,7 +19,7 @@ public class Livro {
     private String isbn;
     @Column(length = 120, nullable = false)
     private String titulo;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name= "idAutor", nullable = false)
     private Autor autor;
     @Column(nullable = false)
@@ -27,7 +27,7 @@ public class Livro {
     @Column(precision =18, scale = 2)
     private BigDecimal preco;
     @Enumerated(EnumType.STRING)
-    @Column(length = 12)
+    @Column(length = 16)
     private GeneroLivro genero;
 
 

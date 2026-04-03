@@ -6,7 +6,11 @@ spring:
     username: admin
     password: admin
     driverClassName: org.postgresql.Driver
+  sql:
+      init:
+        mode: always
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
 

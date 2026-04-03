@@ -1,14 +1,12 @@
 package io.github.cursodsousa.libraryapi.Repository;
 
-
-import io.github.cursodsousa.libraryapi.Model.Autor;
+import io.github.cursodsousa.libraryapi.Model.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 
 import java.util.UUID;
 
 @Repository
-public interface AutorRepository extends JpaRepository<Autor, UUID> {
-
-
+public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
 }
