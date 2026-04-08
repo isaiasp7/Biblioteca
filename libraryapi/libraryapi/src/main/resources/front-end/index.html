@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblioteca | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar reveal">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-text">Libris</span>
+      </div>
+
+      <label class="search" aria-label="Pesquisar livros">
+        <span class="search-icon">⌕</span>
+        <input type="text" placeholder="Pesquisar por título, autor ou gênero..." />
+      </label>
+
+      <button class="profile" aria-label="Perfil">
+        <span>IS</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero reveal">
+        <div class="hero-copy">
+          <p class="hero-kicker">Dashboard de Apresentacao</p>
+          <h1>Bem-vindo ao acervo inteligente da sua biblioteca.</h1>
+          <p>
+            Descubra novidades, acompanhe os mais lidos e encontre os titulos
+            mais bem avaliados em uma experiencia fluida.
+          </p>
+          <button class="btn-primary">Explorar Colecao</button>
+        </div>
+        <article class="hero-book">
+          <p class="hero-book-label">Destaque do Dia</p>
+          <h2>A Biblioteca da Meia-Noite</h2>
+          <p class="hero-book-author">Matt Haig</p>
+          <div class="rating">★★★★★ <span>4.9</span></div>
+        </article>
+      </section>
+
+      <section class="dashboard-section reveal" id="novidades">
+        <div class="section-head">
+          <h3>Novidades</h3>
+          <div class="carousel-controls">
+            <button class="nav-btn" data-track="novidades-track" data-direction="-1" aria-label="Anterior">‹</button>
+            <button class="nav-btn" data-track="novidades-track" data-direction="1" aria-label="Proximo">›</button>
+          </div>
+        </div>
+        <div class="carousel-track" id="novidades-track"></div>
+      </section>
+
+      <section class="dashboard-section reveal" id="mais-lidos">
+        <div class="section-head">
+          <h3>Mais Lidos</h3>
+        </div>
+        <div class="book-grid" id="mais-lidos-grid"></div>
+      </section>
+
+      <section class="dashboard-section reveal" id="mais-avaliados">
+        <div class="section-head">
+          <h3>Mais Bem Avaliados</h3>
+        </div>
+        <div class="book-grid" id="mais-avaliados-grid"></div>
+      </section>
+    </main>
+  </div>
+
+  <template id="book-card-template">
+    <article class="book-card">
+      <div class="book-cover"></div>
+      <div class="book-meta">
+        <h4 class="book-title"></h4>
+        <p class="book-author"></p>
+        <div class="book-bottom">
+          <span class="book-tag"></span>
+          <button class="ghost-btn">Ver detalhes</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="./app.js"></script>
+</body>
+</html>

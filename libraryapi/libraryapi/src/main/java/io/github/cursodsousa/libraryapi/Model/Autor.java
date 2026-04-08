@@ -1,6 +1,5 @@
 package io.github.cursodsousa.libraryapi.Model;
 
-import io.github.cursodsousa.libraryapi.DTO.AutorLivrosDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

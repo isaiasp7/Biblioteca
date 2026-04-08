@@ -1,5 +1,6 @@
 package io.github.cursodsousa.libraryapi.Controller;
 
+import io.github.cursodsousa.libraryapi.DTO.LivroDTO;
 import io.github.cursodsousa.libraryapi.Service.LivroService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("Book")
 public class LivroController {
     @Autowired
     private LivroService livroServ;
-    @GetMapping
-    public ResponseEntity<?> search(
-            @RequestParam(required = false) String nomeAutor,
-            @RequestParam(required = false) String nomeLivro) {
 
+    @GetMapping()
+    public ResponseEntity<?> all(){
+        List<LivroDTO> l = livroServ.findAll();
 
-        return ResponseEntity.ok(livroServ.findAllNames());
+        return ResponseEntity.ok( l);
+
     }
 
 }

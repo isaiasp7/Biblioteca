@@ -15,11 +15,12 @@ public class Livro {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false, unique = true)
     private String isbn;
     @Column(length = 120, nullable = false)
     private String titulo;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})//persist me permite salvar apenas apenas o livro,
+    // se o autor não existir ele é salvo pela jpa
     @JoinColumn(name= "idAutor", nullable = false)
     private Autor autor;
     @Column(nullable = false)
