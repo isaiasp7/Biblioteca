@@ -19,11 +19,15 @@ public class LivroController {
     private LivroService livroServ;
 
     @GetMapping()
-    public ResponseEntity<?> all(){
+    public ResponseEntity<?> search(){
         List<LivroDTO> l = livroServ.findAll();
 
         return ResponseEntity.ok( l);
 
+    }
+    @GetMapping("categorias")
+    public ResponseEntity<?> getCategoria(){
+        return ResponseEntity.ok(livroServ.categorias());
     }
 
 }

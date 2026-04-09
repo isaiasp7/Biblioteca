@@ -14,13 +14,18 @@ public class AutorService {
     @Autowired
     private AutorRepository autorRepos;
     public List<AutorDTO> search(String name){
-        if(name==null || name.isEmpty()){
+        // Corrige: trim() remove espaços e isBlank() detecta strings vazias
+        if(name == null || name.trim().isBlank()){
+            System.out.println("Name is null or blank");
             return findAll();
         }
+        System.out.println("Searching for: " + name);
         List<AutorDTO> autors = new ArrayList<>();
-             autorRepos.findByNomeContainingIgnoreCase(name).forEach(autor -> autors.add(new AutorDTO(autor)) );
-        System.out.println(autors);
-             return autors;
+        autorRepos.findByNomeContainingIgnoreCase(name.trim()).forEach(autor ->
+                autors.add(new AutorDTO(autor))
+        );
+
+        return autors;
     }
     public List<AutorDTO> findAll() {
         List<AutorDTO> autors = new ArrayList<>();

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduLibrary | Dashboard</title>
+    <style>
+        :root {
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --sidebar-bg: #111827;
+    --accent: #bc13fe;
+    --text-main: #f8fafc;
+    --text-dim: #94a3b8;
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Inter', system-ui, sans-serif;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ========== SIDEBAR ========== */
+aside {
+    width: 260px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--glass-border);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 3rem;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-group {
+    margin-bottom: 2rem;
+}
+
+.nav-group-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin: 0 0 1rem 1rem;
+    opacity: 0.6;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 1rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 12px;
+    margin-bottom: 4px;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-link i {
+    font-size: 1.1rem;
+}
+
+.nav-link:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.nav-link.active {
+    background: rgba(188, 19, 254, 0.15);
+    color: var(--accent);
+}
+
+.nav-link.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20%;
+    height: 60%;
+    width: 4px;
+    background: var(--accent);
+    border-radius: 0 4px 4px 0;
+}
+
+.user-profile {
+    padding: 1rem;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+}
+
+.user-info span {
+    display: block;
+    font-size: 0.85rem;
+}
+
+.user-info .user-name {
+    font-weight: 600;
+}
+
+.user-info .user-role {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
+
+/* ========== MAIN CONTENT ========== */
+main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem 3rem;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.search-box {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    padding: 10px 20px;
+    border-radius: 50px;
+    width: 350px;
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    color: white;
+    width: 100%;
+    outline: none;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem;
+    color: var(--text-dim);
+}
+
+/* ========== FILTERS ========== */
+#filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.pill {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    color: var(--text-dim);
+    padding: 8px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition);
+}
+
+.pill.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+    box-shadow: 0 4px 15px rgba(188, 19, 254, 0.3);
+}
+
+/* ========== BOOK GRID ========== */
+#grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 2rem;
+}
+
+.book-card {
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+.book-card:hover {
+    transform: translateY(-8px);
+}
+
+.book-cover {
+    width: 100%;
+    aspect-ratio: 2/3;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #334155, #1e293b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 12px;
+    border: 1px solid var(--glass-border);
+}
+
+.book-info h4 {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.book-info p {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+/* ========== MODAL ========== */
+#overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+}
+
+#overlay.active {
+    display: flex;
+}
+
+.modal {
+    background: var(--bg-card);
+    width: 90%;
+    max-width: 500px;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+}
+    </style>
+</head>
+<body>
+
+<aside>
+    <div>
+        <div class="logo">
+            <span>✨</span> EduLibrary
+        </div>
+        
+        <div class="nav-group">
+            <p class="nav-group-title">Menu Principal</p>
+            <nav>
+                <div class="nav-link active"><span>🏠</span> Dashboard</div>
+                <div class="nav-link"><span>📚</span> Explorar Livros</div>
+                <div class="nav-link"><span>🔥</span> Recomendados</div>
+            </nav>
+        </div>
+
+        <div class="nav-group">
+            <p class="nav-group-title">Sua Conta</p>
+            <nav>
+                <div class="nav-link"><span>❤️</span> Favoritos</div>
+                <div class="nav-link"><span>⚙️</span> Configurações</div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="user-profile">
+        <div class="avatar">S</div>
+        <div class="user-info">
+            <span class="user-name">Student User</span>
+            <span class="user-role">Premium Member</span>
+        </div>
+    </div>
+</aside>
+
+<main>
+    <div class="header-top">
+        <h2>Welcome back, Student</h2>
+        <div class="search-box">
+            <input type="text" id="search" placeholder="Search for books, authors...">
+        </div>
+    </div>
+
+    <h3 class="section-title">Categories</h3>
+    <div id="filters"></div>
+
+    <h3 class="section-title">Explore Books</h3>
+    <div id="grid"></div>
+    <div id="empty" style="display:none; text-align:center; padding: 2rem;">No books found.</div>
+</main>
+
+<div id="overlay">
+    <div class="modal" id="modal-content"></div>
+</div>
+
+<script type="module">
+    import { LivroService } from "../ServicesFront/LivroService.js";
+    import { masterApi } from "../LogicRequest/masterApi.js";
+
+    // Instância do serviço
+    const service = new LivroService(masterApi);
+    let livros = [];
+    let filtroAtivo = "All";
+
+    async function carregarDados() {
+        console.log("🚀 [System] Iniciando carregamento de dados...");
+        try {
+            livros = await service.listarTodos();
+            console.log(`✅ [System] ${livros.length} livros carregados com sucesso.`);
+
+            renderizarFiltros();
+            render();
+        } catch (err) {
+            console.error("❌ [Error] Falha ao buscar dados da API:", err);
+            // Mock para testes visuais
+            livros = [
+                { titulo: "Java Clean Code", autor: "Robert Martin", genero: "Programming", icon: "☕" },
+                { titulo: "The Great Gatsby", autor: "F. Scott Fitzgerald", genero: "Classic", icon: "📖" }
+            ];
+            renderizarFiltros();
+            render();
+        }
+    }
+
+    function renderizarFiltros() {
+        console.log("🎨 [UI] Renderizando filtros de categorias...");
+        const cats = ["All", ...new Set(livros.map(l => l.genero))];
+        const container = document.getElementById("filters");
+
+        container.innerHTML = cats.map(c => `
+                <button class="pill ${c === filtroAtivo ? 'active' : ''}" onclick="window.setFiltro('${c}')">
+                    ${c}
+                </button>
+            `).join('');
+    }
+
+    // Expondo a função para o HTML (escopo global necessário para o onclick manual)
+    window.setFiltro = (cat) => {
+        console.log(`🔍 [Filter] Filtrando por: ${cat}`);
+        filtroAtivo = cat;
+        renderizarFiltros();
+        render();
+    };
+
+    function render() {
+        console.log("📦 [UI] Atualizando a grade de livros...");
+        const busca = document.getElementById("search").value.toLowerCase();
+        const grid = document.getElementById("grid");
+
+        const filtrados = livros.filter(l => {
+            const matchCat = filtroAtivo === "All" || l.genero === filtroAtivo;
+            const matchBusca = l.titulo.toLowerCase().includes(busca) || l.autor.toLowerCase().includes(busca);
+            return matchCat && matchBusca;
+        });
+
+        grid.innerHTML = filtrados.map(l => `
+                <div class="book-card" onclick="window.openModal('${l.isbn}')">
+                    <div class="book-cover">${l.icon || '📚'}</div>
+                    <div class="book-info">
+                        <h4>${l.titulo}</h4>
+                        <p>${l.autor}</p>
+                    </div>
+                </div>
+            `).join('');
+
+        document.getElementById("empty").style.display = filtrados.length ? 'none' : 'block';
+    }
+
+    window.openModal = (isbn) => {
+        const livro = livros.find(l => l.isbn === isbn) || livros[0]; // fallback para o primeiro se isbn falhar no mock
+        console.log(`ℹ️ [Modal] Abrindo detalhes do livro: ${livro.titulo}`);
+
+        const modal = document.getElementById("modal-content");
+        modal.innerHTML = `
+                <button class="close-btn" onclick="document.getElementById('overlay').classList.remove('active')">✕</button>
+                <h2 style="color: var(--accent)">${livro.titulo}</h2>
+                <p style="margin: 10px 0; color: var(--text-dim)">Autor: ${livro.autor}</p>
+                <hr style="border: 0.5px solid var(--glass-border); margin: 20px 0;">
+                <p><strong>Gênero:</strong> ${livro.genero}</p>
+                <p style="margin-top: 15px; line-height: 1.6; color: #cbd5e1;">
+                    ${livro.sinopse || "No summary available for this book at the moment."}
+                </p>
+            `;
+        document.getElementById("overlay").classList.add("active");
+    };
+
+    // Evento de Busca
+    document.getElementById("search").addEventListener("input", () => {
+        console.log("⌨️ [Search] Usuário digitando...");
+        render();
+    });
+    // Adicione isso dentro do seu <script type="module">
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function() {
+        console.log(`🧭 [Navigation] Usuário navegou para: ${this.innerText.trim()}`);
+        
+        // Lógica simples para trocar o active visualmente
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
+    // Inicialização
+    carregarDados();
+</script>
+</body>
+</html>

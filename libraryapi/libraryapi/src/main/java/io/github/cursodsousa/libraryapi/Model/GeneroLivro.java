@@ -1,5 +1,9 @@
 package io.github.cursodsousa.libraryapi.Model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public enum GeneroLivro {
     Ficção,
     NaoFiccao,
@@ -10,5 +14,7 @@ public enum GeneroLivro {
     Fantasia,
     CienciaFiccao,
     Biografia,
-    Poesia
+    Poesia;
+
+
 }
